@@ -48,17 +48,34 @@ function rf3d_draw_debug(_x, _y, _r=20) {
     draw_line_colour(_x, _y, _x + _r * v_x[0], _y + _r * v_x[1], c_red, c_red);
 }
 
-/// @desc Draws a sprite that always faces the screen.
+/// @desc Starts a batch with this sprite and image index.
 /// @desc {real} sprite The sprite to draw.
 /// @desc {real} image The subimage of the sprite to draw.
+function rf3d_draw_begin(_spr, _img) {
+    var rf3d = __rf3d_get_data();
+    rf3d.tex = __rf3d_get_texture_data(_spr, _img);
+    vertex_begin(rf3d.batch, __rf3d_get_full_fat_vertex_format());
+}
+
+/// @desc Ends the current batch and renders it to the screen.
+function rf3d_draw_end() {
+    var rf3d = __rf3d_get_data();
+    var vbuff = rf3d.batch;
+    vertex_end(vbuff);
+    vertex_submit(vbuff, pr_trianglelist, rf3d.tex.page);
+    rf3d.tex = undefined;
+}
+
+/// @desc Draws a sprite that always faces the screen.
 /// @desc {real} x The X position to draw the billboard sprite at.
 /// @desc {real} y The Y position to draw the billboard sprite at.
 /// @desc {real} z The Y position to draw the billboard sprite at.
 /// @desc {real} [blend] The colour of the billboard sprite.
 /// @desc {real} [alpha] The transparency of the billboard sprite.
-function rf3d_draw_billboard(_spr, _img, _x, _y, _z, _col=c_white, _alp=1) {
+function rf3d_add_billboard(_x, _y, _z, _col=c_white, _alp=1) {
     var rf3d = __rf3d_get_data();
-    var tex = __rf3d_get_texture_data(_spr, _img);
+    var vbuff = rf3d.batch;
+    var tex = rf3d.tex;
     var v_pos = rf3d.vOff;
     var v_x = rf3d.vX;
     var v_y = rf3d.vY;
@@ -74,29 +91,24 @@ function rf3d_draw_billboard(_spr, _img, _x, _y, _z, _col=c_white, _alp=1) {
     var y1 = screen_y - tex.offY;
     var x2 = x1 + tex.width;
     var y2 = y1 + tex.height;
-    var vbuff = vertex_create_buffer();
-    vertex_begin(vbuff, __rf3d_get_full_fat_vertex_format());
     vertex_position_3d(vbuff, x1, y1, screen_depth_top);
     vertex_colour(vbuff, _col, _alp);
     vertex_texcoord(vbuff, tex.uvLeft, tex.uvTop);
-    vertex_position_3d(vbuff, x1, y2, screen_depth);
-    vertex_colour(vbuff, _col, _alp);
-    vertex_texcoord(vbuff, tex.uvLeft, tex.uvBottom);
-    vertex_position_3d(vbuff, x2, y1, screen_depth_top);
-    vertex_colour(vbuff, _col, _alp);
-    vertex_texcoord(vbuff, tex.uvRight, tex.uvTop);
     vertex_position_3d(vbuff, x2, y1, screen_depth_top);
     vertex_colour(vbuff, _col, _alp);
     vertex_texcoord(vbuff, tex.uvRight, tex.uvTop);
     vertex_position_3d(vbuff, x1, y2, screen_depth);
     vertex_colour(vbuff, _col, _alp);
     vertex_texcoord(vbuff, tex.uvLeft, tex.uvBottom);
+    vertex_position_3d(vbuff, x1, y2, screen_depth);
+    vertex_colour(vbuff, _col, _alp);
+    vertex_texcoord(vbuff, tex.uvLeft, tex.uvBottom);
+    vertex_position_3d(vbuff, x2, y1, screen_depth_top);
+    vertex_colour(vbuff, _col, _alp);
+    vertex_texcoord(vbuff, tex.uvRight, tex.uvTop);
     vertex_position_3d(vbuff, x2, y2, screen_depth);
     vertex_colour(vbuff, _col, _alp);
     vertex_texcoord(vbuff, tex.uvRight, tex.uvBottom);
-    vertex_end(vbuff);
-    vertex_submit(vbuff, pr_trianglelist, tex.page);
-    vertex_delete_buffer(vbuff);
 }
 
 /// @desc Returns a reference to the fake 3D controller.
@@ -106,6 +118,8 @@ function __rf3d_get_data() {
         vX : [1, 0, 0],
         vY : [0, 1, 0],
         vZ : [0, 0, 1],
+        batch : vertex_create_buffer(),
+        tex : undefined,
     };
     return rf3d;
 }
