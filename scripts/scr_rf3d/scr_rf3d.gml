@@ -86,7 +86,8 @@ function rf3d_add_billboard(_x, _y, _z, _col=c_white, _alp=1) {
     var screen_x = floor(_x * v_x[0] + _y * v_y[0] + _z * v_z[0]);
     var screen_y = floor(_x * v_x[1] + _y * v_y[1] + _z * v_z[1]);
     var screen_depth = _x * v_x[2] + _y * v_y[2] + _z * v_z[2];
-    var screen_depth_top = screen_depth + tex.height * v_z[2];
+    var screen_depth_top = screen_depth - tex.offY * v_z[2];
+    var screen_depth_bottom = screen_depth_top + tex.height * v_z[2];
     var x1 = screen_x - tex.offX;
     var y1 = screen_y - tex.offY;
     var x2 = x1 + tex.width;
@@ -97,16 +98,16 @@ function rf3d_add_billboard(_x, _y, _z, _col=c_white, _alp=1) {
     vertex_position_3d(vbuff, x2, y1, screen_depth_top);
     vertex_colour(vbuff, _col, _alp);
     vertex_texcoord(vbuff, tex.uvRight, tex.uvTop);
-    vertex_position_3d(vbuff, x1, y2, screen_depth);
+    vertex_position_3d(vbuff, x1, y2, screen_depth_bottom);
     vertex_colour(vbuff, _col, _alp);
     vertex_texcoord(vbuff, tex.uvLeft, tex.uvBottom);
-    vertex_position_3d(vbuff, x1, y2, screen_depth);
+    vertex_position_3d(vbuff, x1, y2, screen_depth_bottom);
     vertex_colour(vbuff, _col, _alp);
     vertex_texcoord(vbuff, tex.uvLeft, tex.uvBottom);
     vertex_position_3d(vbuff, x2, y1, screen_depth_top);
     vertex_colour(vbuff, _col, _alp);
     vertex_texcoord(vbuff, tex.uvRight, tex.uvTop);
-    vertex_position_3d(vbuff, x2, y2, screen_depth);
+    vertex_position_3d(vbuff, x2, y2, screen_depth_bottom);
     vertex_colour(vbuff, _col, _alp);
     vertex_texcoord(vbuff, tex.uvRight, tex.uvBottom);
 }
