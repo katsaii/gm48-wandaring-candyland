@@ -156,19 +156,15 @@ function __rf3d_get_texture_data(_sprite, _subimg) {
         var uv_y_offset = uvs[5]; // number of pixels trimmed from the top
         var uv_x_ratio = uvs[6]; // ratio of discarded pixels horizontally
         var uv_y_ratio = uvs[7]; // ratio of discarded pixels vertically
-        var uv_width = (uv_right - uv_left) / uv_x_ratio;
-        var uv_height = (uv_bottom - uv_top) / uv_y_ratio;
-        var uv_kw = uv_width / width;
-        var uv_kh = uv_height / height;
         sprite_data.offX = sprite_get_xoffset(_sprite) - uv_x_offset;
         sprite_data.offY = sprite_get_yoffset(_sprite) - uv_y_offset;
         sprite_data.width = width * uv_x_ratio;
         sprite_data.height = height * uv_y_ratio;
         sprite_data.page = sprite_get_info(_sprite).frames[_subimg].texture;
-        sprite_data.uvLeft = uv_left - uv_x_offset * uv_kw;
-        sprite_data.uvTop = uv_top - uv_y_offset * uv_kh;
-        sprite_data.uvRight = sprite_data.uvLeft + uv_width;
-        sprite_data.uvBottom = sprite_data.uvTop + uv_height;
+        sprite_data.uvLeft = uv_left;
+        sprite_data.uvTop = uv_top;
+        sprite_data.uvRight = uv_right;
+        sprite_data.uvBottom = uv_bottom;
     }
     return sprite_data;
 }
