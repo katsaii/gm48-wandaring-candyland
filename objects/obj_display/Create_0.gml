@@ -6,7 +6,7 @@
 //window_set_caption(game_display_name + ": v" + string(GM_version));
 window_set_min_width(VIEW_DEFAULT_WIDTH);
 window_set_min_height(VIEW_DEFAULT_HEIGHT);
-window_set_size_centre(VIEW_DEFAULT_WIDTH * 2, VIEW_DEFAULT_HEIGHT * 2);
+window_set_size(VIEW_DEFAULT_WIDTH * 2, VIEW_DEFAULT_HEIGHT * 2);
 application_surface_draw_enable(false);
 windowWidth = -1;
 windowHeight = -1;

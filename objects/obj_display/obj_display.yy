@@ -34,7 +34,7 @@
     "path": "folders/Common.yy",
   },
   "resourceVersion": "1.0",
-  "name": "the_display",
+  "name": "obj_display",
   "tags": [],
   "resourceType": "GMObject",
 }
