@@ -32,13 +32,21 @@ function rf3d_set_orientation(_angle, _pitch) {
     var v_x = rf3d.vX;
     var v_y = rf3d.vY;
     var v_z = rf3d.vZ;
-    // rotate about the Z-axis
-    v_x[@ 0] = lengthdir_x(1, _angle);
-    v_x[@ 1] = lengthdir_y(1, _angle);
-    v_x[@ 2] = 0;
-    v_y[@ 0] = lengthdir_x(1, _angle + 90);
-    v_y[@ 1] = lengthdir_y(1, _angle + 90);
-    v_y[@ 2] = 0;
+    v_x[@ 0] = dcos(_angle);
+    var v_x_pitch_radius = dsin(_angle);
+    v_x[@ 1] = v_x_pitch_radius * -dcos(_pitch);
+    v_x[@ 2] = v_x_pitch_radius * dsin(_pitch);
+    v_y[@ 0] = dcos(_angle - 90);
+    var v_y_pitch_radius = dsin(_angle - 90);
+    v_y[@ 1] = v_y_pitch_radius * -dcos(_pitch);
+    v_y[@ 2] = v_y_pitch_radius * dsin(_pitch);
+    v_z[@ 0] = 0;
+    v_z[@ 1] = dsin(_pitch);
+    v_z[@ 2] = dcos(_pitch);
+    show_debug_message(v_x);
+    show_debug_message(v_y);
+    show_debug_message(v_z);
+    show_debug_message("---");
 }
 
 /// @desc Draws a debug view of the basis vectors. (Red = X, Green = Y, Blue = Z)
@@ -50,7 +58,7 @@ function rf3d_debug_draw(_x, _y, _r=20) {
     var v_x = rf3d.vX;
     var v_y = rf3d.vY;
     var v_z = rf3d.vZ;
-    draw_line_colour(_x, _y, _x + _r * v_x[0], _y + _r * v_x[1], c_red, c_red);
-    draw_line_colour(_x, _y, _x + _r * v_y[0], _y + _r * v_y[1], c_green, c_green);
     draw_line_colour(_x, _y, _x + _r * v_z[0], _y + _r * v_z[1], c_blue, c_blue);
+    draw_line_colour(_x, _y, _x + _r * v_y[0], _y + _r * v_y[1], c_green, c_green);
+    draw_line_colour(_x, _y, _x + _r * v_x[0], _y + _r * v_x[1], c_red, c_red);
 }
