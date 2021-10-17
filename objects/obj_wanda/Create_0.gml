@@ -1,6 +1,7 @@
 /// @desc Initialise wanda.
 image_speed = 0;
 z = -CELL_SIZE;
+zstart = z;
 zprevious = z;
 targetAngle = 0;
 movementAngle = 0;

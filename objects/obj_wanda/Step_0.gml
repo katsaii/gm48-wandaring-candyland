@@ -5,9 +5,15 @@ if (respawnTimer != -1) {
     if (respawnTimer > 1) {
         respawnTimer = -1;
     } else if (t < 0.5 && respawnTimer >= 0.5) {
-        x = lastPlatform.x + CELL_SIZE / 2;
-        y = lastPlatform.y + CELL_SIZE / 2;
-        z = lastPlatform.z - CELL_SIZE / 4;
+        if (instance_exists(lastPlatform)) {
+            x = lastPlatform.x + CELL_SIZE / 2;
+            y = lastPlatform.y + CELL_SIZE / 2;
+            z = lastPlatform.z - CELL_SIZE / 4;
+        } else {
+            x = xstart;
+            y = ystart;
+            z = zstart;
+        }
         jumpTimer = -1;
         allowJump = true;
     }
@@ -54,32 +60,32 @@ if (jumpTimer != -1) {
     image_index = sprites.idle;
 }
 // collision check
-var collision = noone;
 var hitbox_radius = 5;
-var wanda_x = x;
-var wanda_y = y;
-var wanda_z = z;
+var grounded = false;
 with (obj_platform) {
-    if (wanda_z >= z) {
-        var pos_x = clamp(wanda_x, x, x + CELL_SIZE);
-        var pos_y = clamp(wanda_y, y, y + CELL_SIZE);
-        if (point_distance(wanda_x, wanda_y, pos_x, pos_y) < hitbox_radius) {
-            collision = id;
-            break;
-        }
+    var pos_x = clamp(other.x, x, x + CELL_SIZE);
+    var pos_y = clamp(other.y, y, y + CELL_SIZE);
+    var pos_distance = point_distance(pos_x, pos_y, other.x, other.y);
+    if (pos_distance >= hitbox_radius) {
+        // outside of collider
+        continue;
+    }
+    if (abs(other.z - z) < 1) {
+        grounded = true;
+    }
+    if (other.z > z && other.zprevious <= z) {
+        other.z = z;
+        other.jumpTimer = -1;
+        other.allowJump = true;
+        other.lastPlatform = id;
+    } else if (other.z > z) {
+        var push_angle = point_direction(pos_x, pos_y, other.x, other.y);
+        var push_distance = hitbox_radius - pos_distance;
+        other.x += lengthdir_x(push_distance, push_angle);
+        other.y += lengthdir_y(push_distance, push_angle);
     }
 }
-if (collision != noone) {
-    lastPlatform = collision;
-    if (zprevious < collision.z) {
-        // landing on a platform
-        z = collision.z;
-        jumpTimer = -1;
-    } else if (wanda_z != z) {
-        x = xprevious;
-        y = yprevious;
-    }
-} else if (jumpTimer == -1) {
+if (!grounded && jumpTimer == -1) {
     allowJump = false;
     jumpTimer = 0.5;
     jumpZ = z + jumpHeight;

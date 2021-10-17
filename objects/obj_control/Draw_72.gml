@@ -13,7 +13,7 @@ var size = 0.05;
 var col_parity = false;
 var wrap_dist_x = 90;
 var wrap_dist_y = 150;
-var off_x = floor(lerp(0, 2 * size * width, angle % wrap_dist_x / wrap_dist_x));
+var off_x = floor(lerp(0, 2 * size * width, -angle % wrap_dist_x / wrap_dist_x));
 var off_y = floor(lerp(0, 2 * size * height, -posZ % wrap_dist_y / wrap_dist_y));
 for (var i = 2 * -size; i <= 1 + 2 * size; i += size) {
     for (var j = 2 * -size; j <= 1 + 2 * size; j += size) {

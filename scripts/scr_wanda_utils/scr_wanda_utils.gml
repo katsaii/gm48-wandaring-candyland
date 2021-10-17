@@ -69,36 +69,60 @@ function draw_island(_cell_x, _cell_y, _height, _occlude) {
 }
 
 function instance_create_on_grid(_row, _col, _obj, _offset=undefined) {
-    var inst = instance_create_layer(_row * CELL_SIZE, _row * CELL_SIZE, layer, _obj);
+    var inst = instance_create_layer(_row * CELL_SIZE, _col * CELL_SIZE, layer, _obj);
     if (_offset != undefined) {
-        inst.z = (_offset + 1) * CELL_SIZE;
+        inst.z = -(_offset + 1) * CELL_SIZE;
+        inst.zstart = inst.z;
     }
     return inst;
 }
 
+function convert_byte_to_number(_byte) {
+    if (_byte >= ord("0") && _byte <= ord("9")) {
+        return _byte - ord("0");
+    }
+    return 0;
+}
+
 function load_room_from_file(_path) {
-    if (file_exists(_path)) {
-        var file = file_text_open_read(_path);
-        for (var row = 0; !file_text_eof(file); row += 1) {
-            var line = file_text_readln(file);
-            var n = floor(string_length(line) / 4);
-            for (var col = 0; col < n; col += 1) {
-                var e_type = string_byte_at(line, 4 * col + 0);
-                var e_offset = string_byte_at(line, 4 * col + 1);
-                var p_type = string_byte_at(line, 4 * col + 2);
-                var p_offset = string_byte_at(line, 4 * col + 3);
-                switch (p_type) {
-                case ord("p"):
-                    instance_create_on_grid(row, col, obj_platform, p_offset);
-                    break;
-                }
-                switch (e_type) {
-                case ord("w"):
-                    instance_create_on_grid(row, col, obj_wanda, e_offset);
-                    break;
-                }
+    var grid = load_csv(_path);
+    for (var row = ds_grid_width(grid) - 1; row >= 0; row -= 1) {
+        for (var col = ds_grid_height(grid) - 1; col >= 0; col -= 1) {
+            var line = grid[# row, col];
+            if not (is_string(line)) {
+                line = string(line);
+            }
+            switch (string_length(line)) {
+            case 0:
+                line += "X";
+            case 1:
+                line += "0";
+            case 2:
+                line += "X";
+            case 3:
+                line += "0";
+            }
+            var p_type = string_byte_at(line, 1);
+            var p_offset = convert_byte_to_number(string_byte_at(line, 2));
+            var e_type = string_byte_at(line, 3);
+            var e_offset = convert_byte_to_number(string_byte_at(line, 4)) + p_offset;
+            switch (p_type) {
+            case ord("X"):
+                break;
+            case ord("p"):
+                instance_create_on_grid(row, col, obj_platform, p_offset);
+                break;
+            }
+            var e_row = row + 0.5;
+            var e_col = col + 0.5;
+            switch (e_type) {
+            case ord("X"):
+                break;
+            case ord("w"):
+                instance_create_on_grid(e_row, e_col, obj_wanda, e_offset);
+                break;
             }
         }
-        file_text_close(file);
     }
+    ds_grid_destroy(grid);
 }
