@@ -7,3 +7,4 @@ pitch = 45;
 posX = 0;
 posY = 0;
 posZ = 0;
+depth = 10000; // draw the background first uwu
