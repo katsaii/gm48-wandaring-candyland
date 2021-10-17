@@ -4,11 +4,21 @@ if (follow != noone) {
     var anchor_x = follow.x;
     var anchor_y = follow.y;
     var anchor_z = follow.z;
+    if (follow == obj_wanda) {
+        anchor_z -= 10;
+    }
     var dist = point_distance_3d(anchor_x, anchor_y, anchor_z, x, y, z);
     if (dist > trail_distance) {
         var scale = trail_distance / dist;
         x = anchor_x + scale * (x - anchor_x);
         y = anchor_y + scale * (y - anchor_y);
         z = anchor_z + scale * (z - anchor_z);
+    }
+}
+// spawn particles
+if (random(1) < 0.5) {
+    with (instance_create_particle(x, y, z, 0.5, random(360), random(360))) {
+        sprite_index = spr_sparkle;
+        image_speed = 0;
     }
 }

@@ -140,6 +140,18 @@ function instance_create_on_grid(_row, _col, _obj, _offset=undefined) {
     return inst;
 }
 
+function instance_create_particle(_x, _y, _z, _speed, _angle, _pitch) {
+    var inst = instance_create_layer(_x, _y, layer, obj_particle);
+    with (inst) {
+        z = _z;
+        xspeed = _speed * dcos(_angle);
+        var v_x_pitch_radius = dsin(_angle);
+        yspeed = _speed * v_x_pitch_radius * -dcos(_pitch);
+        zspeed = _speed * v_x_pitch_radius * dsin(_pitch);
+    }
+    return inst;
+}
+
 function convert_byte_to_number(_byte) {
     if (_byte >= ord("0") && _byte <= ord("9")) {
         return _byte - ord("0");
