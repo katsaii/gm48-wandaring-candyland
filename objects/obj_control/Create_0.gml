@@ -2,4 +2,8 @@
 gpu_set_ztestenable(true);
 gpu_set_alphatestenable(true);
 gpu_set_cullmode(cull_counterclockwise);
-show_debug_overlay(true);
+angle = 0;
+pitch = 45;
+posX = 0;
+posY = 0;
+posZ = 0;
