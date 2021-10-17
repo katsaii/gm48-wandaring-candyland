@@ -1,8 +1,13 @@
 
-function input(_f, _vks_pos, _vks_neg) {
-    var dir = 0;
-    for (var i = min(array_length(_vks_pos), array_length(_vks_neg)) - 1; i >= 0; i -= 1) {
-        dir += _f(_vks_pos[i]) - _f(_vks_neg[i]);
+function input_direction(_f, _vks_pos, _vks_neg) {
+    return input(_f, _vks_pos) - input(_f, _vks_neg);
+}
+
+function input(_f, _vks) {
+    for (var i = array_length(_vks) - 1; i >= 0; i -= 1) {
+        if (_f(_vks[i])) {
+            return true;
+        }
     }
-    return clamp(dir, -1, 1);
+    return false;
 }
