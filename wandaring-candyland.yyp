@@ -15,6 +15,7 @@
     {"id":{"name":"rm_game","path":"rooms/rm_game/rm_game.yy",},"order":0,},
     {"id":{"name":"obj_display","path":"objects/obj_display/obj_display.yy",},"order":0,},
     {"id":{"name":"obj_foliage","path":"objects/obj_foliage/obj_foliage.yy",},"order":3,},
+    {"id":{"name":"spr_grass_edge","path":"sprites/spr_grass_edge/spr_grass_edge.yy",},"order":5,},
     {"id":{"name":"scr_rf3d","path":"scripts/scr_rf3d/scr_rf3d.yy",},"order":1,},
     {"id":{"name":"obj_control","path":"objects/obj_control/obj_control.yy",},"order":0,},
     {"id":{"name":"spr_starts","path":"sprites/spr_starts/spr_starts.yy",},"order":3,},

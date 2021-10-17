@@ -95,6 +95,37 @@ function draw_island(_cell_x, _cell_y, _height, _occlude) {
                 x2, y1, z_bot, col_cliff);
     }
     rf3d_draw_end();
+    rf3d_draw_begin(spr_grass_edge, 0);
+    var hang = 3;
+    if not (_occlude & CELL_LEFT) {
+        rf3d_add_sprite_pos(
+                x1, y1, z_top,
+                x1, y2, z_top,
+                x1 - hang, y2, z_top + hang,
+                x1 - hang, y1, z_top + hang, col);
+    }
+    if not (_occlude & CELL_BOTTOM) {
+        rf3d_add_sprite_pos(
+                x1, y2, z_top,
+                x2, y2, z_top,
+                x2, y2 + hang, z_top + hang,
+                x1, y2 + hang, z_top + hang, col);
+    }
+    if not (_occlude & CELL_RIGHT) {
+        rf3d_add_sprite_pos(
+                x2, y2, z_top,
+                x2, y1, z_top,
+                x2 + hang, y1, z_top + hang,
+                x2 + hang, y2, z_top + hang, col);
+    }
+    if not (_occlude & CELL_TOP) {
+        rf3d_add_sprite_pos(
+                x2, y1, z_top,
+                x1, y1, z_top,
+                x1, y1 - hang, z_top + hang,
+                x2, y1 - hang, z_top + hang, col);
+    }
+    rf3d_draw_end();
 }
 
 function instance_create_on_grid(_row, _col, _obj, _offset=undefined) {
