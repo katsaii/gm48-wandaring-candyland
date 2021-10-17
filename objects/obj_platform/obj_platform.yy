@@ -28,8 +28,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Wanda",
-    "path": "folders/Wanda.yy",
+    "name": "Objects",
+    "path": "folders/Wanda/Objects.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_platform",

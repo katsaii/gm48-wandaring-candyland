@@ -1,4 +1,33 @@
 
+#macro FOLIAGE_RED make_colour_rgb(251, 192, 192)
+#macro FOLIAGE_ORANGE make_colour_rgb(255, 218, 161)
+#macro FOLIAGE_ORANGE_2 make_colour_rgb(244, 154, 63)
+#macro FOLIAGE_YELLOW make_colour_rgb(249, 255, 201)
+#macro FOLIAGE_GREEN make_colour_rgb(186, 255, 229)
+#macro FOLIAGE_GREEN_2 make_colour_rgb(106, 165, 118)
+#macro FOLIAGE_BLUE make_colour_rgb(169, 205, 255)
+#macro FOLIAGE_PURPLE make_colour_rgb(124, 84, 101)
+#macro FOLIAGE_GREY make_colour_rgb(221, 221, 221)
+#macro FOLIAGE_PINK make_colour_rgb(255, 70, 131)
+
+function get_foliage_colour(_z) {
+    static colours = [
+        FOLIAGE_BLUE,
+        FOLIAGE_GREEN,
+        FOLIAGE_GREY,
+        FOLIAGE_GREEN_2,
+        FOLIAGE_YELLOW,
+        FOLIAGE_PINK,
+        FOLIAGE_PURPLE,
+        FOLIAGE_ORANGE,
+        FOLIAGE_RED,
+        FOLIAGE_ORANGE_2,
+    ];
+    var n = floor(_z / CELL_SIZE);
+    n = ((n % 10) + 10) % 10;
+    return colours[n];
+}
+
 function input_direction(_f, _vks_pos, _vks_neg) {
     return input(_f, _vks_pos) - input(_f, _vks_neg);
 }
@@ -21,8 +50,8 @@ function input(_f, _vks) {
 #macro CELL_NONE (0)
 
 function draw_island(_cell_x, _cell_y, _height, _occlude) {
-    var col = c_yellow;
-    var col_cliff = c_red;
+    var col = image_blend;
+    var col_cliff = make_colour_rgb(171, 134, 113);
     var x1 = _cell_x;
     var y1 = _cell_y;
     var x2 = x1 + CELL_SIZE;
@@ -73,6 +102,9 @@ function instance_create_on_grid(_row, _col, _obj, _offset=undefined) {
     if (_offset != undefined) {
         inst.z = -(_offset + 1) * CELL_SIZE;
         inst.zstart = inst.z;
+        if (_obj == obj_foliage || _obj == obj_platform) {
+            inst.image_blend = get_foliage_colour(inst.z);
+        }
     }
     return inst;
 }
@@ -120,6 +152,18 @@ function load_room_from_file(_path) {
                 break;
             case ord("w"):
                 instance_create_on_grid(e_row, e_col, obj_wanda, e_offset);
+                break;
+            case ord("T"):
+                instance_create_on_grid(e_row, e_col, obj_foliage, e_offset).image_index = choose(2, 3);
+                break;
+            case ord("t"):
+                instance_create_on_grid(e_row, e_col, obj_foliage, e_offset).image_index = 4;
+                break;
+            case ord("b"):
+                instance_create_on_grid(e_row, e_col, obj_foliage, e_offset).image_index = choose(0, 1);
+                break;
+            case ord("c"):
+                instance_create_on_grid(e_row, e_col, obj_candy, e_offset).image_index = choose(5, 6, 7, 8, 9);
                 break;
             }
         }
