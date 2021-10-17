@@ -73,7 +73,8 @@ function rf3d_draw_end() {
 /// @desc {real} [blend] The colour of the billboard sprite.
 /// @desc {real} [alpha] The transparency of the billboard sprite.
 /// @desc {real} [flip] Whether to flip the billboard uvs.
-function rf3d_add_billboard(_x, _y, _z, _col=c_white, _alp=1, _flip=false) {
+/// @desc {real} [depth] Manually sets the depth of this image.
+function rf3d_add_billboard(_x, _y, _z, _col=c_white, _alp=1, _flip=false, _depth=0) {
     var rf3d = __rf3d_get_data();
     var vbuff = rf3d.batch;
     var tex = rf3d.tex;
@@ -86,7 +87,7 @@ function rf3d_add_billboard(_x, _y, _z, _col=c_white, _alp=1, _flip=false) {
     _z -= v_pos[2];
     var screen_x = floor(_x * v_x[0] + _y * v_y[0] + _z * v_z[0]);
     var screen_y = floor(_x * v_x[1] + _y * v_y[1] + _z * v_z[1]);
-    var screen_depth = _x * v_x[2] + _y * v_y[2] + _z * v_z[2];
+    var screen_depth = _x * v_x[2] + _y * v_y[2] + _z * v_z[2] + _depth;
     var screen_depth_top = screen_depth - tex.offY * v_z[2];
     var screen_depth_bottom = screen_depth_top + tex.height * v_z[2];
     if (_flip) {

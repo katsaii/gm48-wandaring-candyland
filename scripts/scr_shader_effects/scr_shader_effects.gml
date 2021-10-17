@@ -1,4 +1,11 @@
 
+/// @desc Draws a simple dithering effect, but keeps the same colour blend.
+function shader_set_effect_dissolve() {
+    if (shader_is_compiled(shd_dissolve)) {
+        shader_set(shd_dissolve);
+    }
+}
+
 /// @desc Only colours greyscale pixels.
 function shader_set_effect_colour_grey() {
     if (shader_is_compiled(shd_colour_grey)) {

@@ -19,6 +19,7 @@
     {"id":{"name":"fnt_default","path":"fonts/fnt_default/fnt_default.yy",},"order":1,},
     {"id":{"name":"shd_sepia","path":"shaders/shd_sepia/shd_sepia.yy",},"order":5,},
     {"id":{"name":"shd_clipping","path":"shaders/shd_clipping/shd_clipping.yy",},"order":0,},
+    {"id":{"name":"shd_dissolve","path":"shaders/shd_dissolve/shd_dissolve.yy",},"order":14,},
     {"id":{"name":"scr_gui","path":"scripts/scr_gui/scr_gui.yy",},"order":8,},
     {"id":{"name":"spr_test","path":"sprites/spr_test/spr_test.yy",},"order":0,},
     {"id":{"name":"scr_application","path":"scripts/scr_application/scr_application.yy",},"order":2,},
