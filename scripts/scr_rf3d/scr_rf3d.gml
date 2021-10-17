@@ -112,6 +112,77 @@ function rf3d_add_billboard(_x, _y, _z, _col=c_white, _alp=1) {
     vertex_texcoord(vbuff, tex.uvRight, tex.uvBottom);
 }
 
+/// @desc Draws a sprite in 3D space. Note: this requires the sprite to have automatic trimming disabled.
+/// @desc {real} x1 The X position of the top-left coordinate.
+/// @desc {real} y1 The Y position of the top-left coordinate.
+/// @desc {real} z1 The Z position of the top-left coordinate.
+/// @desc {real} x2 The X position of the top-right coordinate.
+/// @desc {real} y2 The Y position of the top-right coordinate.
+/// @desc {real} z2 The Z position of the top-right coordinate.
+/// @desc {real} x3 The X position of the bottom-right coordinate.
+/// @desc {real} y3 The Y position of the bottom-right coordinate.
+/// @desc {real} z3 The Z position of the bottom-right coordinate.
+/// @desc {real} x4 The X position of the bottom-left coordinate.
+/// @desc {real} y4 The Y position of the bottom-left coordinate.
+/// @desc {real} z4 The Z position of the bottom-left coordinate.
+/// @desc {real} [blend] The colour of the billboard sprite.
+/// @desc {real} [alpha] The transparency of the billboard sprite.
+function rf3d_add_sprite_pos(
+        _x1, _y1, _z1,
+        _x2, _y2, _z2,
+        _x3, _y3, _z3,
+        _x4, _y4, _z4, _col=c_white, _alp=1) {
+    var rf3d = __rf3d_get_data();
+    var vbuff = rf3d.batch;
+    var tex = rf3d.tex;
+    var v_pos = rf3d.vOff;
+    var v_x = rf3d.vX;
+    var v_y = rf3d.vY;
+    var v_z = rf3d.vZ;
+    _x1 -= v_pos[0];
+    _y1 -= v_pos[1];
+    _z1 -= v_pos[2];
+    var x1 = floor(_x1 * v_x[0] + _y1 * v_y[0] + _z1 * v_z[0]);
+    var y1 = floor(_x1 * v_x[1] + _y1 * v_y[1] + _z1 * v_z[1]);
+    var z1 = _x1 * v_x[2] + _y1 * v_y[2] + _z1 * v_z[2];
+    _x2 -= v_pos[0];
+    _y2 -= v_pos[1];
+    _z2 -= v_pos[2];
+    var x2 = floor(_x2 * v_x[0] + _y2 * v_y[0] + _z2 * v_z[0]);
+    var y2 = floor(_x2 * v_x[1] + _y2 * v_y[1] + _z2 * v_z[1]);
+    var z2 = _x2 * v_x[2] + _y2 * v_y[2] + _z2 * v_z[2];
+    _x3 -= v_pos[0];
+    _y3 -= v_pos[1];
+    _z3 -= v_pos[2];
+    var x3 = floor(_x3 * v_x[0] + _y3 * v_y[0] + _z3 * v_z[0]);
+    var y3 = floor(_x3 * v_x[1] + _y3 * v_y[1] + _z3 * v_z[1]);
+    var z3 = _x3 * v_x[2] + _y3 * v_y[2] + _z3 * v_z[2];
+    _x4 -= v_pos[0];
+    _y4 -= v_pos[1];
+    _z4 -= v_pos[2];
+    var x4 = floor(_x4 * v_x[0] + _y4 * v_y[0] + _z4 * v_z[0]);
+    var y4 = floor(_x4 * v_x[1] + _y4 * v_y[1] + _z4 * v_z[1]);
+    var z4 = _x4 * v_x[2] + _y4 * v_y[2] + _z4 * v_z[2];
+    vertex_position_3d(vbuff, x1, y1, z1);
+    vertex_colour(vbuff, _col, _alp);
+    vertex_texcoord(vbuff, tex.uvLeft, tex.uvTop);
+    vertex_position_3d(vbuff, x2, y2, z2);
+    vertex_colour(vbuff, _col, _alp);
+    vertex_texcoord(vbuff, tex.uvRight, tex.uvTop);
+    vertex_position_3d(vbuff, x4, y4, z4);
+    vertex_colour(vbuff, _col, _alp);
+    vertex_texcoord(vbuff, tex.uvLeft, tex.uvBottom);
+    vertex_position_3d(vbuff, x4, y4, z4);
+    vertex_colour(vbuff, _col, _alp);
+    vertex_texcoord(vbuff, tex.uvLeft, tex.uvBottom);
+    vertex_position_3d(vbuff, x2, y2, z2);
+    vertex_colour(vbuff, _col, _alp);
+    vertex_texcoord(vbuff, tex.uvRight, tex.uvTop);
+    vertex_position_3d(vbuff, x3, y3, z3);
+    vertex_colour(vbuff, _col, _alp);
+    vertex_texcoord(vbuff, tex.uvRight, tex.uvBottom);
+}
+
 /// @desc Returns a reference to the fake 3D controller.
 function __rf3d_get_data() {
     static rf3d = {
