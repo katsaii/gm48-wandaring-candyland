@@ -1,5 +1,8 @@
 {
-  "spriteId": null,
+  "spriteId": {
+    "name": "spr_wanda",
+    "path": "sprites/spr_wanda/spr_wanda.yy",
+  },
   "solid": false,
   "visible": true,
   "spriteMaskId": null,

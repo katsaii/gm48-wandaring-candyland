@@ -8,3 +8,11 @@ obj_control.posX = x;
 obj_control.posY = y;
 var diff = -angle_difference(obj_control.angle, targetAngle);
 obj_control.angle += diff * 0.1;
+// update sprite
+if (x != xprevious || y != yprevious) {
+    movementAngle = point_direction(xprevious, yprevious, x, y);
+}
+var facing = floor((angle_difference(-obj_control.angle, movementAngle) + 360 + 45) % 360 / 90) % 4;
+var sprites = subimages[facing];
+image_index = sprites.idle;
+flip = sprites.flip;

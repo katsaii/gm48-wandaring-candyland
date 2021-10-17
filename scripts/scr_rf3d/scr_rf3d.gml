@@ -72,7 +72,8 @@ function rf3d_draw_end() {
 /// @desc {real} z The Y position to draw the billboard sprite at.
 /// @desc {real} [blend] The colour of the billboard sprite.
 /// @desc {real} [alpha] The transparency of the billboard sprite.
-function rf3d_add_billboard(_x, _y, _z, _col=c_white, _alp=1) {
+/// @desc {real} [flip] Whether to flip the billboard uvs.
+function rf3d_add_billboard(_x, _y, _z, _col=c_white, _alp=1, _flip=false) {
     var rf3d = __rf3d_get_data();
     var vbuff = rf3d.batch;
     var tex = rf3d.tex;
@@ -88,28 +89,53 @@ function rf3d_add_billboard(_x, _y, _z, _col=c_white, _alp=1) {
     var screen_depth = _x * v_x[2] + _y * v_y[2] + _z * v_z[2];
     var screen_depth_top = screen_depth - tex.offY * v_z[2];
     var screen_depth_bottom = screen_depth_top + tex.height * v_z[2];
-    var x1 = screen_x - tex.offX;
-    var y1 = screen_y - tex.offY;
-    var x2 = x1 + tex.width;
-    var y2 = y1 + tex.height;
-    vertex_position_3d(vbuff, x1, y1, screen_depth_top);
-    vertex_colour(vbuff, _col, _alp);
-    vertex_texcoord(vbuff, tex.uvLeft, tex.uvTop);
-    vertex_position_3d(vbuff, x2, y1, screen_depth_top);
-    vertex_colour(vbuff, _col, _alp);
-    vertex_texcoord(vbuff, tex.uvRight, tex.uvTop);
-    vertex_position_3d(vbuff, x1, y2, screen_depth_bottom);
-    vertex_colour(vbuff, _col, _alp);
-    vertex_texcoord(vbuff, tex.uvLeft, tex.uvBottom);
-    vertex_position_3d(vbuff, x1, y2, screen_depth_bottom);
-    vertex_colour(vbuff, _col, _alp);
-    vertex_texcoord(vbuff, tex.uvLeft, tex.uvBottom);
-    vertex_position_3d(vbuff, x2, y1, screen_depth_top);
-    vertex_colour(vbuff, _col, _alp);
-    vertex_texcoord(vbuff, tex.uvRight, tex.uvTop);
-    vertex_position_3d(vbuff, x2, y2, screen_depth_bottom);
-    vertex_colour(vbuff, _col, _alp);
-    vertex_texcoord(vbuff, tex.uvRight, tex.uvBottom);
+    if (_flip) {
+        var x2 = screen_x + tex.offX;
+        var y1 = screen_y - tex.offY;
+        var x1 = x2 - tex.width;
+        var y2 = y1 + tex.height;
+        vertex_position_3d(vbuff, x1, y1, screen_depth_top);
+        vertex_colour(vbuff, _col, _alp);
+        vertex_texcoord(vbuff, tex.uvRight, tex.uvTop);
+        vertex_position_3d(vbuff, x2, y1, screen_depth_top);
+        vertex_colour(vbuff, _col, _alp);
+        vertex_texcoord(vbuff, tex.uvLeft, tex.uvTop);
+        vertex_position_3d(vbuff, x1, y2, screen_depth_bottom);
+        vertex_colour(vbuff, _col, _alp);
+        vertex_texcoord(vbuff, tex.uvRight, tex.uvBottom);
+        vertex_position_3d(vbuff, x1, y2, screen_depth_bottom);
+        vertex_colour(vbuff, _col, _alp);
+        vertex_texcoord(vbuff, tex.uvRight, tex.uvBottom);
+        vertex_position_3d(vbuff, x2, y1, screen_depth_top);
+        vertex_colour(vbuff, _col, _alp);
+        vertex_texcoord(vbuff, tex.uvLeft, tex.uvTop);
+        vertex_position_3d(vbuff, x2, y2, screen_depth_bottom);
+        vertex_colour(vbuff, _col, _alp);
+        vertex_texcoord(vbuff, tex.uvLeft, tex.uvBottom);
+    } else {
+        var x1 = screen_x - tex.offX;
+        var y1 = screen_y - tex.offY;
+        var x2 = x1 + tex.width;
+        var y2 = y1 + tex.height;
+        vertex_position_3d(vbuff, x1, y1, screen_depth_top);
+        vertex_colour(vbuff, _col, _alp);
+        vertex_texcoord(vbuff, tex.uvLeft, tex.uvTop);
+        vertex_position_3d(vbuff, x2, y1, screen_depth_top);
+        vertex_colour(vbuff, _col, _alp);
+        vertex_texcoord(vbuff, tex.uvRight, tex.uvTop);
+        vertex_position_3d(vbuff, x1, y2, screen_depth_bottom);
+        vertex_colour(vbuff, _col, _alp);
+        vertex_texcoord(vbuff, tex.uvLeft, tex.uvBottom);
+        vertex_position_3d(vbuff, x1, y2, screen_depth_bottom);
+        vertex_colour(vbuff, _col, _alp);
+        vertex_texcoord(vbuff, tex.uvLeft, tex.uvBottom);
+        vertex_position_3d(vbuff, x2, y1, screen_depth_top);
+        vertex_colour(vbuff, _col, _alp);
+        vertex_texcoord(vbuff, tex.uvRight, tex.uvTop);
+        vertex_position_3d(vbuff, x2, y2, screen_depth_bottom);
+        vertex_colour(vbuff, _col, _alp);
+        vertex_texcoord(vbuff, tex.uvRight, tex.uvBottom);
+    }
 }
 
 /// @desc Draws a sprite in 3D space. Note: this requires the sprite to have automatic trimming disabled.
