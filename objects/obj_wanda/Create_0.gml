@@ -13,6 +13,7 @@ jumpHeight = 30;
 allowJump = true;
 jumpParity = false;
 lastPlatform = noone;
+heldStar = noone;
 subimages = [
   {
       flip : true,

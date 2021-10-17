@@ -33,6 +33,9 @@ if (allowJump) {
         jumpTimer = 0;
         jumpZ = z;
         jumpParity = !jumpParity;
+        var snd = audio_play_sound(snd_jump, 0, false);
+        audio_sound_gain(snd, choose(1.5, 1.75), 0);
+        audio_sound_pitch(snd, choose(0.8, 1.25, 1.5));
     }
 } else if (input(keyboard_check_released, [vk_space, ord("X"), vk_enter])) {
     allowJump = true;
@@ -94,3 +97,19 @@ if (!grounded && jumpTimer == -1) {
 obj_control.posX = x;
 obj_control.posY = y;
 obj_control.posZ = z;
+// collide with stars
+var hitbox_radius_collectible = 20;
+with (obj_star) {
+    if (point_distance_3d(other.x, other.y, other.z, x, y, z) >= hitbox_radius_collectible) {
+        // outside of star
+        continue;
+    }
+    if (follow == noone) {
+        follow = obj_wanda;
+        var prev_star = other.heldStar;
+        if (prev_star != noone) {
+            prev_star.follow = id;
+        }
+        other.heldStar = id;
+    }
+}

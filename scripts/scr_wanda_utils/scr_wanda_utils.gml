@@ -184,6 +184,9 @@ function load_room_from_file(_path) {
             case ord("w"):
                 instance_create_on_grid(e_row, e_col, obj_wanda, e_offset);
                 break;
+            case ord("s"):
+                instance_create_on_grid(e_row, e_col, obj_star, e_offset);
+                break;
             case ord("T"):
                 instance_create_on_grid(e_row, e_col, obj_foliage, e_offset).image_index = choose(2, 3);
                 break;

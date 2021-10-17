@@ -10,3 +10,6 @@ posZ = 0;
 depth = 10000; // draw the background first uwu
 // load room
 load_room_from_file("level.csv");
+var snd = audio_play_sound(bgm_music, 100, true);
+audio_sound_gain(snd, 0, 0);
+audio_sound_gain(snd, 0.125, game_get_speed(gamespeed_microseconds) * 2 / 10);
