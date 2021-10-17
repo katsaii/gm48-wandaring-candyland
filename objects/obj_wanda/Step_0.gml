@@ -79,7 +79,6 @@ with (obj_platform) {
     if (other.z > z && other.zprevious <= z) {
         other.z = z;
         other.jumpTimer = -1;
-        other.allowJump = true;
         other.lastPlatform = id;
     } else if (other.z > z) {
         var push_angle = point_direction(pos_x, pos_y, other.x, other.y);
@@ -89,7 +88,6 @@ with (obj_platform) {
     }
 }
 if (!grounded && jumpTimer == -1) {
-    allowJump = false;
     jumpTimer = 0.5;
     jumpZ = z + jumpHeight;
     jumpParity = !jumpParity;
