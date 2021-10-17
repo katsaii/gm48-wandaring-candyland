@@ -17,6 +17,6 @@ draw_primitive_end();
 gpu_set_blendmode(bm_subtract);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
-var msg = "Search the world and find all " + string(instance_number(obj_star)) + " stars!";
+var msg = "Search the world and find all " + string(instance_number(obj_star)) + " stars!\n\nUse the Arrow Keys or WASD to move\nPress Space, Enter, or X to jump\nPress Q and E to rotate the view";
 draw_text_colour(mean(left, right), mean(top, bottom), msg, c_dkgray, c_dkgray, c_dkgray, c_dkgray, alpha * alpha);
 gpu_set_blendmode(bm_normal);
