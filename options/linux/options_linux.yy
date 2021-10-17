@@ -1,8 +1,8 @@
 {
-  "option_linux_display_name": "Witch Wanda: Protect the Island",
+  "option_linux_display_name": "Witch Wanda: Wandaring Candyland",
   "option_linux_version": "1.0.0.0",
   "option_linux_maintainer_email": "katsaiinuxii@gmail.com",
-  "option_linux_homepage": "https://gm48.net/game/1897/witch-wanda-protect-the-island",
+  "option_linux_homepage": "",
   "option_linux_short_desc": "A video game about witches",
   "option_linux_long_desc": "",
   "option_linux_splash_screen": "${base_options_dir}/linux/splash/splash.png",

@@ -1,5 +1,5 @@
 {
-  "option_mac_display_name": "Witch Wanda: Protect the Island",
+  "option_mac_display_name": "Witch Wanda: Wandaring Candyland",
   "option_mac_app_id": "",
   "option_mac_version": "1.0.0.0",
   "option_mac_output_dir": "~/gamemakerstudio2",

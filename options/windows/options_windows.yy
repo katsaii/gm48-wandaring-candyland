@@ -1,9 +1,9 @@
 {
-  "option_windows_display_name": "Witch Wanda: Protect the Island",
+  "option_windows_display_name": "Witch Wanda: Wandaring Candyland",
   "option_windows_executable_name": "${project_name}.exe",
   "option_windows_version": "1.0.0.0",
   "option_windows_company_info": "",
-  "option_windows_product_info": "Witch Wanda",
+  "option_windows_product_info": "Wandaring Candyland",
   "option_windows_copyright_info": "(c) Katsaii and Mashmerlow",
   "option_windows_description_info": "A video game about witches",
   "option_windows_display_cursor": true,
