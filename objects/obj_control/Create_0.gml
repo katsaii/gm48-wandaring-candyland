@@ -1,4 +1,4 @@
-/// @desc Initialise controller.
+/// @desc Initialise controller and load the room.
 gpu_set_ztestenable(true);
 gpu_set_alphatestenable(true);
 gpu_set_cullmode(cull_counterclockwise);

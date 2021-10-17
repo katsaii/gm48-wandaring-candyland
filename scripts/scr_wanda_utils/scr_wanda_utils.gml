@@ -23,12 +23,12 @@ function input(_f, _vks) {
 function draw_island(_cell_x, _cell_y, _height, _occlude) {
     var col = c_yellow;
     var col_cliff = c_red;
-    var x1 = _cell_x * CELL_SIZE;
-    var y1 = _cell_y * CELL_SIZE;
+    var x1 = _cell_x;
+    var y1 = _cell_y;
     var x2 = x1 + CELL_SIZE;
     var y2 = y1 + CELL_SIZE;
     var z_bot = 0;
-    var z_top = -_height * CELL_SIZE;
+    var z_top = _height;
     rf3d_draw_begin(spr_grass, 0);
     rf3d_add_sprite_pos(
             x1, y1, z_top,

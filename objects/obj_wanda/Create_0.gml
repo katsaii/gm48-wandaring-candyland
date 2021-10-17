@@ -1,12 +1,17 @@
 /// @desc Initialise wanda.
 image_speed = 0;
-z = 0;
+z = -CELL_SIZE;
+zprevious = z;
 targetAngle = 0;
 movementAngle = 0;
 flip = false;
+respawnTimer = -1;
 jumpTimer = -1;
+jumpZ = 0;
+jumpHeight = 30;
 allowJump = true;
 jumpParity = false;
+lastPlatform = noone;
 subimages = [
   {
       flip : true,

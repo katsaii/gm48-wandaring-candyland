@@ -16,6 +16,7 @@
     {"id":{"name":"scr_rf3d","path":"scripts/scr_rf3d/scr_rf3d.yy",},"order":1,},
     {"id":{"name":"obj_control","path":"objects/obj_control/obj_control.yy",},"order":2,},
     {"id":{"name":"spr_starts","path":"sprites/spr_starts/spr_starts.yy",},"order":3,},
+    {"id":{"name":"obj_platform","path":"objects/obj_platform/obj_platform.yy",},"order":7,},
     {"id":{"name":"fnt_default","path":"fonts/fnt_default/fnt_default.yy",},"order":1,},
     {"id":{"name":"shd_sepia","path":"shaders/shd_sepia/shd_sepia.yy",},"order":5,},
     {"id":{"name":"shd_clipping","path":"shaders/shd_clipping/shd_clipping.yy",},"order":0,},
