@@ -8,3 +8,5 @@ posX = 0;
 posY = 0;
 posZ = 0;
 depth = 10000; // draw the background first uwu
+// load room
+load_room_from_file("level.txt");
