@@ -14,6 +14,7 @@ allowJump = true;
 jumpParity = false;
 lastPlatform = noone;
 heldStar = noone;
+starsCollected = 0;
 subimages = [
   {
       flip : true,

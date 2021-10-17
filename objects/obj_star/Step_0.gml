@@ -1,4 +1,11 @@
 /// @desc Follow object.
+if (random(1) < 0.5) {
+    with (instance_create_particle(x, y, z, 0.5, random(360), random(360))) {
+        sprite_index = spr_sparkle;
+        image_speed = 0;
+    }
+}
+// follow object
 var trail_distance = 20;
 if (follow != noone) {
     var anchor_x = follow.x;
@@ -13,12 +20,5 @@ if (follow != noone) {
         x = anchor_x + scale * (x - anchor_x);
         y = anchor_y + scale * (y - anchor_y);
         z = anchor_z + scale * (z - anchor_z);
-    }
-}
-// spawn particles
-if (random(1) < 0.5) {
-    with (instance_create_particle(x, y, z, 0.5, random(360), random(360))) {
-        sprite_index = spr_sparkle;
-        image_speed = 0;
     }
 }

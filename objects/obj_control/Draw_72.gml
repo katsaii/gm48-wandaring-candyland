@@ -1,6 +1,9 @@
 /// @desc Set up 3d and draw background.
 rf3d_set_origin(posX, posY, posZ);
 rf3d_set_orientation(angle, pitch);
+if (instance_exists(obj_gameend)) {
+    rf3d_set_orientation(angle + obj_gameend.timer * 180, pitch + obj_gameend.timer * 60);
+}
 // draw the background
 var cam = view_camera[view_current];
 var width = camera_get_view_width(cam);
@@ -22,7 +25,7 @@ for (var i = 2 * -size; i <= 1 + 2 * size; i += size) {
         var x2 = off_x + lerp(left, right, i + size);
         var y2 = off_y + lerp(top, bottom, j + size);
         col_parity = !col_parity;
-        var col = col_parity ? make_colour_rgb(255, 201, 243) : make_colour_rgb(255, 166, 235);
+        var col = col_parity ? make_colour_rgb(117, 98, 156) : make_colour_rgb(183, 148, 209);
         draw_rectangle_colour(x1, y1, x2, y2, col, col, col, col, false);
     }
 }

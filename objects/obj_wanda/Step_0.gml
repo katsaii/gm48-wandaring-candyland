@@ -21,11 +21,18 @@ if (respawnTimer != -1) {
 zprevious = z;
 var dir_x = input_direction(keyboard_check, [vk_right, ord("D")], [vk_left, ord("A")]);
 var dir_y = input_direction(keyboard_check, [vk_down, ord("S")], [vk_up, ord("W")]);
+if (instance_exists(obj_gameend) || instance_exists(obj_gamestart) && obj_gamestart.timer > 0.75) {
+    dir_x = 0;
+    dir_y = 0;
+}
 targetAngle += 45 * input_direction(keyboard_check_pressed, [ord("Q")], [ord("E")]);
 x += dir_y * -dsin(obj_control.angle) + dir_x * dcos(obj_control.angle);
 y += dir_y * dcos(obj_control.angle) + dir_x * dsin(obj_control.angle);
 var diff = -angle_difference(obj_control.angle, targetAngle);
 obj_control.angle += diff * 0.1;
+if (instance_exists(obj_gameend)) {
+    exit;
+}
 // jump
 if (allowJump) {
     if (jumpTimer == -1 && input(keyboard_check, [vk_space, ord("X"), vk_enter])) {
@@ -55,6 +62,9 @@ if (jumpTimer != -1) {
     if (z > 0 && respawnTimer == -1) {
         // death
         respawnTimer = 0;
+        var snd = audio_play_sound(snd_death, 0, false);
+        audio_sound_gain(snd, choose(1, 1.75), 0);
+        audio_sound_pitch(snd, choose(0.8, 1.25, 1.5));
     }
 } else if (moving) {
     var frame_idx = (current_time * 0.005) % 4;
@@ -109,5 +119,13 @@ with (obj_star) {
             prev_star.follow = id;
         }
         other.heldStar = id;
+        other.starsCollected += 1;
+        var snd = audio_play_sound(snd_collect, 0, false);
+        audio_sound_gain(snd, choose(2, 2.75), 0);
+        audio_sound_pitch(snd, choose(0.8, 1.25, 1.5));
     }
+}
+if (starsCollected >= instance_number(obj_star)) {
+    // WINNER!
+    instance_create_layer(0, 0, layer, obj_gameend);
 }
