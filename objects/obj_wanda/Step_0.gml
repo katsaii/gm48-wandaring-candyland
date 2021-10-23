@@ -75,6 +75,7 @@ if (jumpTimer != -1) {
 // collision check
 var hitbox_radius = 5;
 var grounded = false;
+platformZ = infinity;
 with (obj_platform) {
     var pos_x = clamp(other.x, x, x + CELL_SIZE);
     var pos_y = clamp(other.y, y, y + CELL_SIZE);
@@ -82,6 +83,9 @@ with (obj_platform) {
     if (pos_distance >= hitbox_radius) {
         // outside of collider
         continue;
+    }
+    if (z < other.platformZ) {
+        other.platformZ = z;
     }
     if (abs(other.z - z) < 1) {
         grounded = true;
