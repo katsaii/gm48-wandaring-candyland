@@ -1,5 +1,6 @@
 {
   "resources": [
+    {"id":{"name":"spr_shadow","path":"sprites/spr_shadow/spr_shadow.yy",},"order":8,},
     {"id":{"name":"shd_posterise","path":"shaders/shd_posterise/shd_posterise.yy",},"order":10,},
     {"id":{"name":"shd_brightness","path":"shaders/shd_brightness/shd_brightness.yy",},"order":8,},
     {"id":{"name":"shd_pattern","path":"shaders/shd_pattern/shd_pattern.yy",},"order":2,},
