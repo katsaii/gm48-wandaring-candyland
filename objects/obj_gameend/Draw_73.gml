@@ -18,6 +18,6 @@ gpu_set_blendmode(bm_subtract);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 var font_alpha = timer < 1 ? 0 : (timer - 1) * 2;
-var msg = "GAME OVER\nThanks for playing!\n\nWandering Candyland\nA game by:\nKatsaii - Technical Art and Programming\nMashmerlow - Art, Music, and Sound Design";
+var msg = "GAME OVER\nThanks for playing!\n\nWandaring Candyland\nA game by:\nKatsaii - Technical Art and Programming\nMashmerlow - Art, Music, and Sound Design";
 draw_text_colour(mean(left, right), mean(top, bottom), msg, c_dkgray, c_dkgray, c_dkgray, c_dkgray, font_alpha * font_alpha);
 gpu_set_blendmode(bm_normal);
